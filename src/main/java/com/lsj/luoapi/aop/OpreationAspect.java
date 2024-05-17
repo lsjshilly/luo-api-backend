@@ -8,6 +8,7 @@ import com.lsj.luoapi.model.domain.RequestContext;
 import com.lsj.luoapi.model.dto.user.UserDTO;
 import com.lsj.luoapi.service.audit.AuditAdapter;
 import com.lsj.luoapi.service.user.UserService;
+import com.lsj.luoapi.utils.UserHodler;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -65,13 +66,16 @@ public class OpreationAspect {
 
         RequestContext requestContext = RequestContext.build(request);
         requestContext.setOperation(operation);
-        initLoginUser(requestContext);
         attributes.setAttribute(SystemConstants.DEFAULT_REQUST_ATTRIBUTES, requestContext, RequestAttributes.SCOPE_REQUEST);
 
         log.info("{} {} {}",request.getMethod(), request.getRequestURI(), operation.getMethodSignature());
-
+        initLoginUser(requestContext);
         OpreationExecutor executor = new OpreationExecutor(requestContext, auditAdapter, joinPoint);
-        return executor.execute();
+        try {
+            return executor.execute();
+        }finally {
+            UserHodler.remove();
+        }
 
     }
 
@@ -129,6 +133,7 @@ public class OpreationAspect {
             }
             stringRedisTemplate.expire(LOGIN_USER_TOKEN_PREFIX + token, LOGIN_USER_TOKEN_TTL, TimeUnit.MINUTES);
             context.setUserDTO(loginUser);
+            UserHodler.save(loginUser);
         }catch (Exception e) {
             log.error("database error", e);
         }
