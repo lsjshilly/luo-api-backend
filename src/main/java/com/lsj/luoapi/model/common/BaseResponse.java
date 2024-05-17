@@ -4,7 +4,7 @@ package com.lsj.luoapi.model.common;
 import lombok.Data;
 
 @Data
-public class BaseResponse {
+public class BaseResponse<T> {
 
     /**
      * 错误码
@@ -17,10 +17,10 @@ public class BaseResponse {
     /**
      * 响应数据
      */
-    private Object data;
+    private T data;
 
 
-    public BaseResponse(int code, String message, Object data) {
+    public BaseResponse(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -33,27 +33,27 @@ public class BaseResponse {
     }
 
 
-    public static BaseResponse success() {
-        return new BaseResponse(ErrCode.SUCCESS.getCode(), "", null);
+    public static <T> BaseResponse<T> success() {
+        return new BaseResponse<T>(ErrCode.SUCCESS.getCode(), "", null);
     }
 
 
-    public static BaseResponse success(Object data) {
-        return new BaseResponse(ErrCode.SUCCESS.getCode(), "", data);
+    public static <T> BaseResponse<T> success(T data) {
+        return new BaseResponse<T>(ErrCode.SUCCESS.getCode(), "", data);
     }
 
 
-    public static BaseResponse error(int code, String errmsg) {
-        return new BaseResponse(code, errmsg, null);
+    public static <T> BaseResponse<T> error(int code, String errmsg) {
+        return new BaseResponse<T>(code, errmsg, null);
     }
 
-    public static BaseResponse error(ErrCode errCode) {
-        return new BaseResponse(errCode.getCode(), errCode.getMessage(), null);
+    public static <T> BaseResponse<T> error(ErrCode errCode) {
+        return new BaseResponse<T>(errCode.getCode(), errCode.getMessage(), null);
     }
 
 
-    public static BaseResponse error(ErrCode errCode, String errmsg) {
-        return new BaseResponse(errCode.getCode(), errmsg, null);
+    public static <T> BaseResponse<T> error(ErrCode errCode, String errmsg) {
+        return new BaseResponse<T>(errCode.getCode(), errmsg, null);
     }
 
 

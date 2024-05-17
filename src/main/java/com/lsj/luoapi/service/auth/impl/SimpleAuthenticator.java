@@ -10,12 +10,12 @@ import java.util.List;
 
 public class SimpleAuthenticator implements Authenticator {
     @Override
-    public BaseResponse validate(RequestContext ctx) {
+    public BaseResponse<Void> validate(RequestContext ctx) {
         return null;
     }
 
     @Override
-    public BaseResponse authenticate(RequestContext ctx) {
+    public BaseResponse<Void> authenticate(RequestContext ctx) {
 
         List<String> anyRoles = ctx.getOperation().getAnyRoles();
         List<String> mustRoles = ctx.getOperation().getMustRoles();

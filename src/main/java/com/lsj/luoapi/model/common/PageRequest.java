@@ -2,6 +2,8 @@ package com.lsj.luoapi.model.common;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PageRequest {
     /**
@@ -17,7 +19,7 @@ public class PageRequest {
     /**
      * 排序字段
      */
-    private String sortField;
+    private List<String> sortFields;
 
 
 }

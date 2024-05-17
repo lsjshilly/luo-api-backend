@@ -113,13 +113,19 @@ public class OpreationAspect {
     }
 
     protected void initLoginUser(RequestContext context) {
-        String token = context.getRequest().getHeader(HttpHeader.AUTHORIZATION_HEADER);
-        if (StringUtils.isBlank(token)) {
-            log.warn("token is empty");
+        String bearertoken = context.getRequest().getHeader(HttpHeader.AUTHORIZATION_HEADER);
+        if (StringUtils.isBlank(bearertoken)) {
+            log.warn("bearertoken is empty");
+            return;
+        }
+        String[] tokens = StringUtils.split(bearertoken, " ");
+
+        if (tokens.length != 2) {
+            log.warn("invalid token format:{}", bearertoken);
             return;
         }
 
-        String id = stringRedisTemplate.opsForValue().get(LOGIN_USER_TOKEN_PREFIX + token);
+        String id = stringRedisTemplate.opsForValue().get(LOGIN_USER_TOKEN_PREFIX + tokens[1]);
 
         if (StringUtils.isBlank(id)) {
             log.warn("user login state is null");
@@ -131,7 +137,7 @@ public class OpreationAspect {
                 log.warn("user is not exist");
                 return;
             }
-            stringRedisTemplate.expire(LOGIN_USER_TOKEN_PREFIX + token, LOGIN_USER_TOKEN_TTL, TimeUnit.MINUTES);
+            stringRedisTemplate.expire(LOGIN_USER_TOKEN_PREFIX + tokens[1], LOGIN_USER_TOKEN_TTL, TimeUnit.MINUTES);
             context.setUserDTO(loginUser);
             UserHodler.save(loginUser);
         }catch (Exception e) {

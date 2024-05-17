@@ -8,6 +8,8 @@ import com.lsj.luoapi.model.dto.user.UserLoginRequest;
 import com.lsj.luoapi.model.dto.user.UserLoginResult;
 import com.lsj.luoapi.model.dto.user.UserRegisterRequest;
 import com.lsj.luoapi.service.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +24,7 @@ public class UserController extends BaseController{
 
     @Operator(value = "UserLogin")
     @PostMapping("/login")
-    public BaseResponse login(@RequestBody UserLoginRequest userLoginRequest) {
+    public BaseResponse<UserLoginResult> login(@RequestBody UserLoginRequest userLoginRequest) {
         UserLoginResult loginResult = userService.doLogin(userLoginRequest);
         return BaseResponse.success(loginResult);
     }
@@ -30,7 +32,7 @@ public class UserController extends BaseController{
 
     @PostMapping("/register")
     @Operator(value = "UserRegister")
-    public BaseResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public BaseResponse<UserDTO> register(@RequestBody UserRegisterRequest userRegisterRequest) {
         UserDTO userDTO = userService.register(userRegisterRequest);
         return BaseResponse.success(userDTO);
     }
@@ -38,7 +40,8 @@ public class UserController extends BaseController{
 
     @GetMapping("/me")
     @Operator(value = "GetCurrentUser")
-    public BaseResponse getCurrentUser() {
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    public BaseResponse<UserDTO> getCurrentUser() {
         RequestContext context = getRequestContext();
         return BaseResponse.success(context.getUserDTO());
     }

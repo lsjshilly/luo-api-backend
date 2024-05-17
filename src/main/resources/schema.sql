@@ -34,3 +34,18 @@ create table if not exists tb_tags
 )
 
 
+create table planetcode.tb_api_info
+(
+    id          bigint auto_increment primary key comment '主键ID',
+    name        varchar(64)                        not null not null comment 'api名称',
+    method      varchar(64)                        not null comment '请求方式',
+    url         varchar(32)                        not null comment '接口地址',
+    request     text                               null comment '请求信息',
+    response    text                               null comment '响应信息',
+    state       tinyint  default 0 comment '0 关闭 1 开启',
+    user_id     bigint comment '用户ID',
+    description varchar(256)                       null comment '描述信息',
+    create_time datetime default CURRENT_TIMESTAMP null comment '创建时间',
+    update_time datetime default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP comment '更新时间',
+    deleted     tinyint  default 1                 null comment '删除'
+);
