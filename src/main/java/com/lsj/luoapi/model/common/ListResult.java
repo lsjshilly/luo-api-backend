@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ListResult {
-    private List<?> items;
+public class ListResult<T> {
+    private List<T> items;
     private Long total;
 
 }

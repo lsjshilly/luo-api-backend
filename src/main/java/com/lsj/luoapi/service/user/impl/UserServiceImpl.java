@@ -5,6 +5,7 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsj.luoapi.mapper.UserMapper;
+import com.lsj.luoapi.model.common.AddOrUpdateResult;
 import com.lsj.luoapi.model.common.BusinessExecption;
 import com.lsj.luoapi.model.common.ErrCode;
 import com.lsj.luoapi.model.dto.user.UserDTO;
@@ -51,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public UserDTO register(UserRegisterRequest userRegisterRequest) {
+    public AddOrUpdateResult register(UserRegisterRequest userRegisterRequest) {
         if (RegexUtils.invalidUsername(userRegisterRequest.getUsername())) {
             throw new BusinessExecption(ErrCode.ERR_REGISTER_ERROR, "用户名不合法，仅支持中英文、数字、下划线、中划线、@及.，4-32长度");
         }
@@ -74,9 +75,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (!saved) {
             throw new BusinessExecption(ErrCode.ERR_REGISTER_ERROR, "数据库异常");
         }
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        return userDTO;
+        return new AddOrUpdateResult(user.getId());
     }
 
     @Override

@@ -51,7 +51,18 @@ public enum ErrCode {
     /**
      * 注册 失败
      */
-    ERR_REGISTER_ERROR(110103, "注册失败");
+    ERR_REGISTER_ERROR(110103, "注册失败"),
+
+
+    /**
+     * 添加api失败
+     */
+    ADD_API_ERROR(110201, "添加api失败"),
+
+    /**
+     * 更新api失败
+     */
+    update_API_ERROR(110202, "更新api失败");
 
     private final int code;
     private final String message;

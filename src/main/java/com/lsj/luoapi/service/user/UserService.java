@@ -1,6 +1,7 @@
 package com.lsj.luoapi.service.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lsj.luoapi.model.common.AddOrUpdateResult;
 import com.lsj.luoapi.model.dto.user.UserDTO;
 import com.lsj.luoapi.model.dto.user.UserLoginRequest;
 import com.lsj.luoapi.model.dto.user.UserLoginResult;
@@ -16,7 +17,7 @@ public interface UserService extends IService<User> {
 
     UserLoginResult doLogin(UserLoginRequest userLoginRequest);
 
-    UserDTO register(UserRegisterRequest userRegisterRequest);
+    AddOrUpdateResult register(UserRegisterRequest userRegisterRequest);
 
     UserDTO getLoginUser(long userId);
 }

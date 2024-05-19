@@ -1,6 +1,8 @@
 package com.lsj.luoapi.controller;
 
+import com.lsj.luoapi.aop.AuthChecker;
 import com.lsj.luoapi.aop.Operator;
+import com.lsj.luoapi.model.common.AddOrUpdateResult;
 import com.lsj.luoapi.model.common.BaseResponse;
 import com.lsj.luoapi.model.domain.RequestContext;
 import com.lsj.luoapi.model.dto.user.UserDTO;
@@ -32,15 +34,16 @@ public class UserController extends BaseController{
 
     @PostMapping("/register")
     @Operator(value = "UserRegister")
-    public BaseResponse<UserDTO> register(@RequestBody UserRegisterRequest userRegisterRequest) {
-        UserDTO userDTO = userService.register(userRegisterRequest);
-        return BaseResponse.success(userDTO);
+    public BaseResponse<AddOrUpdateResult> register(@RequestBody UserRegisterRequest userRegisterRequest) {
+        AddOrUpdateResult result = userService.register(userRegisterRequest);
+        return BaseResponse.success(result);
     }
 
 
     @GetMapping("/me")
     @Operator(value = "GetCurrentUser")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    @AuthChecker(anyRoles = {"user::admin", "user::common"})
     public BaseResponse<UserDTO> getCurrentUser() {
         RequestContext context = getRequestContext();
         return BaseResponse.success(context.getUserDTO());
