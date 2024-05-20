@@ -9,8 +9,11 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="method" column="method" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
-            <result property="request" column="request" jdbcType="VARCHAR"/>
-            <result property="response" column="response" jdbcType="VARCHAR"/>
+            <result property="requestHeaders" column="request_headers" jdbcType="VARCHAR"/>
+            <result property="requestParams" column="request_params" jdbcType="VARCHAR"/>
+            <result property="requestBody" column="request_body" jdbcType="VARCHAR"/>
+            <result property="responseBody" column="response_body" jdbcType="VARCHAR"/>
+            <result property="requestExample" column="request_example" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
@@ -21,8 +24,9 @@
 
     <sql id="Base_Column_List">
         id,name,method,
-        url,request,response,
-        state,user_id,description,
+        url,request_headers,request_params,
+        request_body,response_body,request_example,
+        status,user_id,description,
         create_time,update_time,deleted
     </sql>
 </mapper>

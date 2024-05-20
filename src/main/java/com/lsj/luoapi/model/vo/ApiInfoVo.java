@@ -1,5 +1,7 @@
 package com.lsj.luoapi.model.vo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.lsj.luoapi.model.dto.user.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,14 +36,29 @@ public class ApiInfoVo {
     private String url;
 
     /**
-     * 请求信息
+     * 请求头
      */
-    private String request;
+    private String requestHeaders;
 
     /**
-     * 响应信息
+     * 请求参数
      */
-    private String response;
+    private String requestParams;
+
+    /**
+     * 请求体
+     */
+    private String requestBody;
+
+    /**
+     * 响应数据
+     */
+    private String responseBody;
+
+    /**
+     * 请求示例
+     */
+    private String requestExample;
 
     /**
      * 0 关闭 1 开启

@@ -8,7 +8,6 @@ import com.lsj.luoapi.model.common.PageRequest;
 import com.lsj.luoapi.model.dto.api.ApiAddRequest;
 import com.lsj.luoapi.model.dto.api.ApiQueryRequest;
 import com.lsj.luoapi.model.dto.api.ApiUpdateRequest;
-import com.lsj.luoapi.model.dto.user.UserLoginResult;
 import com.lsj.luoapi.model.entity.ApiInfo;
 import com.lsj.luoapi.model.vo.ApiInfoVo;
 

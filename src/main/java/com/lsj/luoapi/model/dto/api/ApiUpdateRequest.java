@@ -35,15 +35,29 @@ public class ApiUpdateRequest {
     private String url;
 
     /**
-     * 请求信息
+     * 请求头
      */
-    private String request;
+    private String requestHeaders;
 
     /**
-     * 响应信息
+     * 请求参数
      */
-    private String response;
+    private String requestParams;
 
+    /**
+     * 请求体
+     */
+    private String requestBody;
+
+    /**
+     * 响应数据
+     */
+    private String responseBody;
+
+    /**
+     * 请求示例
+     */
+    private String requestExample;
 
 
     /**

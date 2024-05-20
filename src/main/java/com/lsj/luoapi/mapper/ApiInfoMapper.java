@@ -1,7 +1,7 @@
 package com.lsj.luoapi.mapper;
 
-import com.lsj.luoapi.model.entity.ApiInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lsj.luoapi.model.entity.ApiInfo;
 
 /**
 * @author liushijie
