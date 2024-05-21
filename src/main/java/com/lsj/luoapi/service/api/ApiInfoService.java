@@ -1,10 +1,7 @@
 package com.lsj.luoapi.service.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lsj.luoapi.model.common.AddOrUpdateResult;
-import com.lsj.luoapi.model.common.DeleteRequest;
-import com.lsj.luoapi.model.common.ListResult;
-import com.lsj.luoapi.model.common.PageRequest;
+import com.lsj.luoapi.model.common.*;
 import com.lsj.luoapi.model.dto.api.ApiAddRequest;
 import com.lsj.luoapi.model.dto.api.ApiQueryRequest;
 import com.lsj.luoapi.model.dto.api.ApiUpdateRequest;
@@ -25,4 +22,6 @@ public interface ApiInfoService extends IService<ApiInfo> {
     ListResult<ApiInfoVo> getApiInfoPage(ApiQueryRequest apiQueryRequest, PageRequest pageRequest);
 
     boolean deleteApiInfos(DeleteRequest<Long> deleteRequest);
+
+    ApiInfoVo getApiInfoById(IdRequest<Long> idRequest);
 }

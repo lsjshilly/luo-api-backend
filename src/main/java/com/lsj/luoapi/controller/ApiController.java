@@ -56,6 +56,15 @@ public class ApiController extends BaseController{
     }
 
 
+    @GetMapping("/api-info")
+    @Operator(value = "GetApiInfoById")
+    @AuthChecker(anyRoles = {"user::admin", "user::common"})
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    public BaseResponse<ApiInfoVo> getApiInfoById(@RequestBody IdRequest<Long> idRequest) {
+        ApiInfoVo  apiInfoVo = apiInfoService.getApiInfoById(idRequest);
+        return BaseResponse.success(apiInfoVo);
+    }
+
     @DeleteMapping("/api-info")
     @Operator(value = "DeleteApiInfos")
     @AuthChecker(anyRoles = {"user::admin"})

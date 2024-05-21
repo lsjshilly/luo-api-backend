@@ -154,8 +154,8 @@ public class ApiInfoServiceImpl extends ServiceImpl<ApiInfoMapper, ApiInfo>
     @Override
     @Transactional
     public boolean deleteApiInfos(DeleteRequest<Long> deleteRequest) {
-        if (deleteRequest.getId() == null || Objects.isNull(deleteRequest.getIds()) || deleteRequest.getIds().isEmpty()) {
-            throw new BusinessExecption(ErrCode.VALIDATION_ERROR, "参数一次");
+        if (deleteRequest.getId() == null && (Objects.isNull(deleteRequest.getIds()) || deleteRequest.getIds().isEmpty())) {
+            throw new BusinessExecption(ErrCode.VALIDATION_ERROR, "参数异常");
         }
 
         List<Long> deleteIds = new ArrayList<>();
@@ -175,6 +175,19 @@ public class ApiInfoServiceImpl extends ServiceImpl<ApiInfoMapper, ApiInfo>
         }
 
         return true;
+    }
+
+    @Override
+    public ApiInfoVo getApiInfoById( IdRequest<Long> idRequest) {
+        if (idRequest.getId() == null) {
+            throw new BusinessExecption(ErrCode.VALIDATION_ERROR, "参数异常");
+        }
+        ApiInfo info = this.getById(idRequest.getId());
+        if (info == null) {
+            throw new BusinessExecption(ErrCode.ERR_PAGE_NOT_FOUND, "不存在");
+        }
+        return BeanUtil.copyProperties(info, ApiInfoVo.class);
+
     }
 
 
