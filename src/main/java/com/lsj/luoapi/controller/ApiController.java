@@ -56,12 +56,15 @@ public class ApiController extends BaseController{
     }
 
 
-    @GetMapping("/api-info")
+    @GetMapping("/api-info/{id}")
     @Operator(value = "GetApiInfoById")
     @AuthChecker(anyRoles = {"user::admin", "user::common"})
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public BaseResponse<ApiInfoVo> getApiInfoById(@RequestBody IdRequest<Long> idRequest) {
-        ApiInfoVo  apiInfoVo = apiInfoService.getApiInfoById(idRequest);
+    public BaseResponse<ApiInfoVo> getApiInfoById(@PathVariable Long id) {
+        if (id == null) {
+            return BaseResponse.error(ErrCode.VALIDATION_ERROR, "参数异常");
+        }
+        ApiInfoVo  apiInfoVo = apiInfoService.getApiInfoById(id);
         return BaseResponse.success(apiInfoVo);
     }
 

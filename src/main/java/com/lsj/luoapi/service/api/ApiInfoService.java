@@ -23,5 +23,5 @@ public interface ApiInfoService extends IService<ApiInfo> {
 
     boolean deleteApiInfos(DeleteRequest<Long> deleteRequest);
 
-    ApiInfoVo getApiInfoById(IdRequest<Long> idRequest);
+    ApiInfoVo getApiInfoById(Long id);
 }

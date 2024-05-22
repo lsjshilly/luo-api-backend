@@ -178,16 +178,15 @@ public class ApiInfoServiceImpl extends ServiceImpl<ApiInfoMapper, ApiInfo>
     }
 
     @Override
-    public ApiInfoVo getApiInfoById( IdRequest<Long> idRequest) {
-        if (idRequest.getId() == null) {
+    public ApiInfoVo getApiInfoById( Long id) {
+        if ( id == null) {
             throw new BusinessExecption(ErrCode.VALIDATION_ERROR, "参数异常");
         }
-        ApiInfo info = this.getById(idRequest.getId());
+        ApiInfo info = this.getById(id);
         if (info == null) {
             throw new BusinessExecption(ErrCode.ERR_PAGE_NOT_FOUND, "不存在");
         }
         return BeanUtil.copyProperties(info, ApiInfoVo.class);
-
     }
 
 
